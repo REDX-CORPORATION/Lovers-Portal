@@ -1,0 +1,3226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Dynamic title based on link type -->
+    <title id="pageTitle">Love Portal ❤️ | Your Love Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff5f9e, #ff9a9e, #ffc2d1);
+            color: #5a1a3e;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Welcome Modal */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 95, 158, 0.95), rgba(255, 154, 158, 0.95));
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .welcome-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(90, 26, 62, 0.3);
+            border: 3px solid #ff9a9e;
+            animation: modalAppear 0.6s ease-out;
+        }
+        
+        .welcome-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #ff2f6e;
+            margin-bottom: 1.5rem;
+        }
+        
+        .welcome-content p {
+            color: #8a2c5e;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .welcome-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #ff9a9e;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            color: #5a1a3e;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .welcome-input:focus {
+            outline: none;
+            border-color: #ff2f6e;
+            box-shadow: 0 0 0 3px rgba(255, 47, 110, 0.2);
+        }
+        
+        .welcome-btn {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        
+        .welcome-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 47, 110, 0.4);
+        }
+        
+        .names-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .name-input {
+            flex: 1;
+        }
+        
+        /* Floating hearts background */
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.5;
+            color: #ffb6c1; /*(light pink) */
+            animation: float 15s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff0065, #ff0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 10px rgba(255, 47, 110, 0.2);
+        }
+        
+        .logo i {
+            margin-right: 0.8rem;
+            font-size: 2.5rem;
+        }
+        
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: #ff2f6e;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: #8a2c5e;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #ff2f6e;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+        
+        /* User profile without image */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 20px rgba(255, 47, 110, 0.15);
+        }
+        
+        .user-profile span {
+            font-weight: 600;
+            color: #5a1a3e;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff2f6e;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(255, 47, 110, 0.1);
+        }
+        
+        .social-links a:hover {
+            background: #ff2f6e;
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* Share Button */
+        .share-btn {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(255, 47, 110, 0.2);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 47, 110, 0.3);
+        }
+        
+        /* Reset Button */
+        .reset-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff2f6e;
+            border: 2px solid #ff9a9e;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.2);
+        }
+        
+        .reset-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            border-color: #ff2f6e;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            padding: 1.5rem 0;
+        }
+        
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+        
+        .welcome-text h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ff0000, #ff1283);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(255, 47, 110, 0.25);
+        }
+        
+        .welcome-text p {
+            font-size: 1.1rem;
+            color: #8a2c5e;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        /* Perfect Synchronized Orbit System */
+        .orbit-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 600px;
+            margin: 0 auto;
+        }
+        
+        .central-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, rgba(255, 47, 110, 0.3), rgba(255, 154, 158, 0.3));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 60px rgba(255, 47, 110, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            z-index: 5;
+            animation: pulse 6s infinite ease-in-out;
+        }
+        
+        .central-heart i {
+            font-size: 4.5rem;
+            color: #ff2f6e;
+            animation: heartbeat 2s infinite ease-in-out;
+            text-shadow: 0 5px 15px rgba(255, 47, 110, 0.5);
+        }
+        
+        /* Orbit paths (visual only) */
+        .orbit-path {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+        
+        .orbit-1 {
+            width: 400px;
+            height: 400px;
+        }
+        
+        .orbit-2 {
+            width: 500px;
+            height: 500px;
+        }
+        
+        /* Circular Cards with Perfect Synchronized Orbit Animation */
+        .card {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(255, 47, 110, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+            overflow: hidden;
+            transform-origin: center;
+            top: calc(50% - 60px);
+            left: calc(50% - 60px);
+        }
+        
+        .card:hover {
+            transform: scale(1.25) rotate(10deg);
+            box-shadow: 0 20px 50px rgba(255, 47, 110, 0.4);
+            border-color: #ff2f6e;
+            z-index: 100;
+            background: white;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 47, 110, 0.1) 0%, rgba(255, 47, 110, 0) 70%);
+        }
+        
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            color: #ff2f6e;
+            text-shadow: 0 2px 5px rgba(255, 47, 110, 0.2);
+        }
+        
+        /* Perfect synchronized orbit animations - ALL SAME SPEED */
+        .card-1 {
+            animation: orbit 40s linear infinite;
+        }
+        
+        .card-2 {
+            animation: orbit 40s linear infinite;
+            animation-delay: -5.714s; /* 40/7 = 5.714 */
+        }
+        
+        .card-3 {
+            animation: orbit 40s linear infinite;
+            animation-delay: -11.428s; /* 40/7 * 2 */
+        }
+        
+        .card-4 {
+            animation: orbit 40s linear infinite;
+            animation-delay: -17.142s; /* 40/7 * 3 */
+        }
+        
+        .card-5 {
+            animation: orbit 40s linear infinite;
+            animation-delay: -22.856s; /* 40/7 * 4 */
+        }
+        
+        .card-6 {
+            animation: orbit 40s linear infinite;
+            animation-delay: -28.57s; /* 40/7 * 5 */
+        }
+        
+        .card-7 {
+            animation: orbit 40s linear infinite;
+            animation-delay: -34.284s; /* 40/7 * 6 */
+        }
+        
+        /* Perfect circular orbit - all cards follow same path at same speed */
+        @keyframes orbit {
+            0% {
+                transform: 
+                    rotate(0deg) 
+                    translateX(200px) 
+                    rotate(0deg);
+            }
+            100% {
+                transform: 
+                    rotate(360deg) 
+                    translateX(200px) 
+                    rotate(-360deg);
+            }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(90, 26, 62, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            border: 3px solid #ff9a9e;
+            box-shadow: 0 25px 70px rgba(255, 47, 110, 0.3);
+            overflow: hidden;
+            animation: modalAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            border-bottom: 3px solid #ff9a9e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .modal-header h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 5px rgba(90, 26, 62, 0.3);
+        }
+        
+        .close-modal {
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        /* Task-specific Styles */
+        .task-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .task-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .task-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #ff2f6e;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .task-header p {
+            color: #8a2c5e;
+            font-size: 1rem;
+        }
+        
+        .valentine-question {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1));
+            border-radius: 15px;
+            border: 2px solid #ff9a9e;
+        }
+        
+        .valentine-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: none;
+            outline: none;
+            min-width: 150px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 47, 110, 0.4);
+        }
+        
+        .btn-yes:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 47, 110, 0.6);
+        }
+        
+        .btn-no {
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff2f6e;
+            border: 3px solid #ff9a9e;
+            box-shadow: 0 5px 20px rgba(255, 154, 158, 0.3);
+        }
+        
+        .btn-no:hover {
+            background: white;
+            transform: translateY(-5px);
+        }
+        
+        .love-meter-container {
+            text-align: center;
+        }
+        
+        .meter {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 154, 158, 0.3);
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #ff9a9e;
+        }
+        
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            width: 0%;
+            border-radius: 15px;
+            transition: width 2s ease-in-out;
+        }
+        
+        .meter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            color: white;
+            font-size: 1rem;
+            text-shadow: 0 2px 5px rgba(90, 26, 62, 0.3);
+        }
+        
+        /* Memory Grid with Delete Buttons */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .memory-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            border: 2px solid #ff9a9e;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 154, 158, 0.2);
+            position: relative;
+        }
+        
+        .memory-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: #ff2f6e;
+            box-shadow: 0 15px 35px rgba(255, 47, 110, 0.3);
+        }
+        
+        .memory-icon {
+            font-size: 2rem;
+            color: #ff2f6e;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Delete/Close buttons for ALL items */
+        .memory-delete, .challenge-delete, .wishlist-delete, .message-delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 47, 110, 0.1);
+            color: #ff2f6e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #ff9a9e;
+            font-weight: bold;
+            font-size: 1.1rem;
+            z-index: 5;
+        }
+        
+        .memory-delete:hover, .challenge-delete:hover, .wishlist-delete:hover, .message-delete:hover {
+            background: #ff2f6e;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* NEW: Challenge Item Box Style */
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .challenge-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            border: 2px solid #ff9a9e;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 154, 158, 0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .challenge-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: #ff2f6e;
+            box-shadow: 0 15px 35px rgba(255, 47, 110, 0.3);
+        }
+        
+        .challenge-status {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .status-pending {
+            background: rgba(255, 154, 158, 0.2);
+            color: #ff2f6e;
+            border: 2px solid #ff9a9e;
+        }
+        
+        .status-pending:hover {
+            background: rgba(255, 47, 110, 0.2);
+        }
+        
+        .status-completed {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            color: white;
+            border: 2px solid #ff2f6e;
+        }
+        
+        .status-completed:hover {
+            opacity: 0.9;
+        }
+        
+        /* NEW: Wishlist Item Box Style */
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .wishlist-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            border: 2px solid #ff9a9e;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 154, 158, 0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wishlist-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: #ff2f6e;
+            box-shadow: 0 15px 35px rgba(255, 47, 110, 0.3);
+        }
+        
+        .wishlist-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #ff9a9e;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wishlist-checkbox.checked {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            border-color: #ff2f6e;
+        }
+        
+        .wishlist-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .wishlist-checkbox:hover {
+            transform: scale(1.1);
+        }
+        
+        /* NEW: Message Item Box Style */
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .message-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            border: 2px solid #ff9a9e;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(255, 154, 158, 0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message-item:hover {
+            transform: translateY(-5px);
+            border-color: #ff2f6e;
+            box-shadow: 0 15px 35px rgba(255, 47, 110, 0.3);
+        }
+        
+        /* Date Idea Card */
+        .date-idea-card {
+            background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1));
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid #ff9a9e;
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.2);
+        }
+        
+        .date-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.2rem;
+            color: #8a2c5e;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        /* How to Use Promotional Section - Hidden by default */
+        .promo-section {
+            background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1));
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid #ff9a9e;
+            text-align: center;
+            display: none; /* Hidden by default */
+        }
+        
+        .promo-section h3 {
+            color: #ff2f6e;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .promo-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .promo-step {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 2px solid #ff9a9e;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .step-number {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        /* Add Challenge Button */
+        .add-challenge-btn {
+            background: linear-gradient(90deg, #ff2f6e, #ff9a9e);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(255, 47, 110, 0.2);
+        }
+        
+        .add-challenge-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 47, 110, 0.3);
+        }
+        
+        /* Add Date to Memory Form */
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        @media (min-width: 480px) {
+            .date-input-group {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .promo-steps {
+                flex-direction: row;
+            }
+            
+            .promo-step {
+                flex: 1;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .date-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #ff9a9e;
+            background: white;
+            color: #5a1a3e;
+            font-size: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: #8a2c5e;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 10;
+            border-top: 2px dashed rgba(255, 154, 158, 0.5);
+            margin-top: 2rem;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 60px rgba(255, 47, 110, 0.5); }
+            50% { transform: translate(-50%, -50%) scale(1.06); box-shadow: 0 0 80px rgba(255, 47, 110, 0.7); }
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+        
+        @keyframes modalAppear {
+            0% { transform: scale(0.7) rotate(-5deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        
+        /* Responsive Design - Mobile First */
+        @media (max-width: 768px) {
+            header {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .menu-toggle {
+                display: block;
+                order: 1;
+            }
+            
+            .logo {
+                order: 2;
+                flex: 1;
+                text-align: center;
+                font-size: 2rem;
+            }
+            
+            .header-actions {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            nav {
+                order: 4;
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+                margin-top: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.8rem;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 15px;
+                padding: 1rem;
+                border: 2px solid #ff9a9e;
+            }
+            
+            .orbit-container {
+                height: 500px;
+            }
+            
+            .central-heart {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .central-heart i {
+                font-size: 4rem;
+            }
+            
+            .card {
+                width: 100px;
+                height: 100px;
+                padding: 0.8rem;
+            }
+            
+            .card-icon {
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .orbit-1 {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .orbit-2 {
+                width: 450px;
+                height: 450px;
+            }
+            
+            @keyframes orbit {
+                0% {
+                    transform: 
+                        rotate(0deg) 
+                        translateX(175px) 
+                        rotate(0deg);
+                }
+                100% {
+                    transform: 
+                        rotate(360deg) 
+                        translateX(175px) 
+                        rotate(-360deg);
+                }
+            }
+            
+            .welcome-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .modal-content {
+                max-height: 90vh;
+            }
+            
+            .promo-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .memory-grid, .challenges-grid, .wishlist-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .messages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .orbit-container {
+                height: 450px;
+            }
+            
+            .central-heart {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .central-heart i {
+                font-size: 3.5rem;
+            }
+            
+            .card {
+                width: 85px;
+                height: 85px;
+                padding: 0.6rem;
+            }
+            
+            .card-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .card-title {
+                font-size: 0.9rem;
+            }
+            
+            .orbit-1 {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .orbit-2 {
+                width: 400px;
+                height: 400px;
+            }
+            
+            @keyframes orbit {
+                0% {
+                    transform: 
+                        rotate(0deg) 
+                        translateX(150px) 
+                        rotate(0deg);
+                }
+                100% {
+                    transform: 
+                        rotate(360deg) 
+                        translateX(150px) 
+                        rotate(-360deg);
+                }
+            }
+            
+            .memory-grid, .challenges-grid, .wishlist-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .valentine-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .user-profile {
+                padding: 0.5rem 1rem;
+            }
+            
+            .social-links {
+                display: none;
+            }
+            
+            .reset-btn span {
+                display: none;
+            }
+            
+            .reset-btn {
+                padding: 0.6rem;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            nav {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Modal for Both Names -->
+    <div id="welcomeModal" class="welcome-modal">
+        <div class="welcome-content">
+            <h2>Welcome to Love Portal! ❤️</h2>
+            <p>This is your personal romantic space. To get started, please tell us about you and your partner:</p>
+            
+            <div class="names-container">
+                <input type="text" id="yourNameInput" class="welcome-input name-input" placeholder="Your name" autocomplete="off">
+                <input type="text" id="partnerNameInput" class="welcome-input name-input" placeholder="Your partner's name" autocomplete="off">
+            </div>
+            
+            <p style="font-size: 0.9rem; color: #8a2c5e; margin-top: -0.5rem; margin-bottom: 1.5rem;">This will personalize everything on the site for both of you.</p>
+            <button class="welcome-btn" onclick="setNames()">Create Our Love Portal</button>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #8a2c5e;">Share the link with your partner after customizing!</p>
+        </div>
+    </div>
+    
+    <!-- Floating hearts background -->
+    <div id="floatingHearts"></div>
+    
+    <!-- Main Container (hidden until names are set) -->
+    <div id="mainContainer" class="container" style="display: none;">
+        <!-- Header -->
+        <header>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="logo">
+                <i class="fas fa-heart"></i>
+                Love Portal
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" onclick="closeMenu()">Home</a></li>
+                    <!--<li><a href="#" onclick="openModal('modal-memories'); closeMenu()">Memories</a></li>
+                    
+                    <li><a href="#" onclick="openModal('modal-date-ideas'); closeMenu()">Ideas</a></li>
+                    <li><a href="#" onclick="openModal('modal-challenges'); closeMenu()">Challenges</a></li>
+                    <li><a href="#" onclick="openModal('modal-wishlist'); closeMenu()">Wishlist</a></li>-->
+
+                    <li><a href="#" onclick="openModal('modal-howto'); closeMenu()">Guide</a></li>
+                    <li><a href="#" onclick="openModal('modal-about'); closeMenu()">About portal</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="user-profile">
+                    <span id="namesDisplay">Loading...</span>
+                </div>
+                <button class="share-btn" onclick="openModal('modal-share')">
+                    <i class="fas fa-share-alt"></i> <span>Share</span>
+                </button>
+                <button class="reset-btn" onclick="resetAllData()">
+                    <i class="fas fa-redo"></i> <span>Reset</span>
+                </button>
+                
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="welcome-text">
+                <h1 id="personalizedWelcome">Love Journey with A & B ❤️</h1>
+                <p id="personalizedMessage">A special place for you and your partner to connect, create memories, and strengthen your bond. Select a card to begin your romantic adventure.</p>
+            </div>
+            
+            <!-- How to Use Promotional Section (Will be shown/hidden based on URL) -->
+            <div id="promo-section" class="promo-section">
+                <h3>🌟 How to Use This Portal</h3>
+                <div class="promo-steps">
+                    <div class="promo-step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h4>Customize Everything</h4>
+                            <p style="font-size: 0.9rem; color: #8a2c5e;">Add your memories, date ideas, and wishlist items</p>
+                        </div>
+                    </div>
+                    <div class="promo-step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h4>Share with Partner</h4>
+                            <p style="font-size: 0.9rem; color: #8a2c5e;">Send the personalized link to your partner</p>
+                        </div>
+                    </div>
+                    <div class="promo-step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h4>Grow Together</h4>
+                            <p style="font-size: 0.9rem; color: #8a2c5e;">Complete challenges and create memories together</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-yes" onclick="openModal('modal-howto')" style="margin-top: 1rem;">Learn More</button>
+            </div>
+            
+            <!-- Perfect Synchronized Orbit System -->
+            <div class="orbit-container">
+                <!-- Central Heart -->
+                <div class="central-heart">
+                    <i class="fas fa-heart"></i>
+                </div>
+                
+                <!-- Orbit paths (visual) -->
+                <div class="orbit-path orbit-1"></div>
+                <div class="orbit-path orbit-2"></div>
+                
+                <!-- Circular Cards with Perfect Synchronized Orbits -->
+                <div class="card card-1" data-modal="modal-valentine">
+                    <div class="card-icon">
+                        <i class="fas fa-kiss-wink-heart"></i>
+                    </div>
+                    <h3 class="card-title">Valentine</h3>
+                </div>
+                
+                <div class="card card-2" data-modal="modal-love-meter">
+                    <div class="card-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="card-title">LoveMeter</h3>
+                </div>
+                
+                <div class="card card-3" data-modal="modal-memories">
+                    <div class="card-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3 class="card-title">Memories</h3>
+                </div>
+                
+                <div class="card card-4" data-modal="modal-date-ideas">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="card-title">Ideas</h3>
+                </div>
+                
+                <div class="card card-5" data-modal="modal-messages">
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="card-title">Messages</h3>
+                </div>
+                
+                <div class="card card-6" data-modal="modal-challenges">
+                    <div class="card-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="card-title">Challenges</h3>
+                </div>
+                
+                <div class="card card-7" data-modal="modal-wishlist">
+                    <div class="card-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="card-title">Wishlist</h3>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <p id="footerText">Made with <i class="fas fa-heart" style="color: #ff2f6e;"></i> for <span id="footerPartnerName">your partner</span> by <span id="footerYourName">you</span></p>
+            <p>© 2025 RED-X CORPORATION | Connect with us</p>
+            <div class="social-links" style="justify-content: center; margin-top: 1.2rem;">
+                <a href="https://discord.gg/f7KPc9JyeY" target="_blank" title="Join our Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://guns.lol/mohtasimjitu" target="_blank" title="My Guns.lol Profile">
+                    <i class="fas fa-gamepad"></i>
+                </a>
+                <a href="https://t.me/+OglBPVcrngY1OGQ9" target="_blank" title="Message me on Telegram">
+                   <i class="fab fa-telegram"></i>
+                </a>
+ 
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Modals for Each Task -->
+    
+    <!-- Valentine Proposal Modal -->
+    <div id="modal-valentine" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="valentineModalTitle">Will you be my Valentine? 💘</h2>
+                <div class="close-modal" data-modal="modal-valentine">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3 id="valentineQuestion">A Special Question For You</h3>
+                        <p><3</p>
+                    </div>
+                    
+                    <div class="valentine-question">
+                        <p style="font-size: 1.4rem; margin-bottom: 1.2rem; color: #ff2f6e; font-weight: 600;" id="valentineText">Will you continue this beautiful journey with me?</p>
+                        <p style="color: #8a2c5e; margin-bottom: 2rem; font-size: 1rem;">A simple question with eternal significance</p>
+                        
+                        <div class="valentine-buttons">
+                            <button class="btn btn-yes" id="yes-btn">YES 💖</button>
+                            <button class="btn btn-no" id="no-btn">NO 😒</button>
+                        </div>
+                        
+                        <div id="valentine-response" style="margin-top: 2rem; font-size: 1.3rem; color: #ff2f6e; font-weight: 600; min-height: 40px; font-family: 'Dancing Script', cursive;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Love Meter Modal -->
+    <div id="modal-love-meter" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Love Compatibility Meter</h2>
+                <div class="close-modal" data-modal="modal-love-meter">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3 id="loveMeterTitle">Measure Your Love</h3>
+                        <p>Discover the unique bond you share</p>
+                    </div>
+                    
+                    <div class="love-meter-container">
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                            <input type="text" id="your-name" placeholder="Your name" class="date-input" style="text-align: center;">
+                            <input type="text" id="partner-name" placeholder="Partner's name" class="date-input" style="text-align: center;">
+                        </div>
+                        
+                        <button class="btn btn-yes" onclick="calculateCompatibility()" style="margin-bottom: 2rem; width: 100%;">Analyze Love Connection</button>
+                        
+                        <div class="meter">
+                            <div class="meter-fill" id="meter-fill"></div>
+                            <div class="meter-text" id="meter-text">0%</div>
+                        </div>
+                        
+                        <div id="compatibility-result" style="margin-top: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Memory Vault Modal -->
+    <div id="modal-memories" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Memory Vault</h2>
+                <div class="close-modal" data-modal="modal-memories">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Your Shared Memories</h3>
+                        <p>Moments that define your journey together</p>
+                    </div>
+                    
+                    <div class="memory-grid" id="memoryGrid">
+                        <!-- Memories will be loaded here -->
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem; color: #ff2f6e;">Add New Memory</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <input type="text" id="new-memory-title" placeholder="Memory title" class="date-input">
+                            <textarea id="new-memory-description" placeholder="Describe your memory..." style="padding: 1rem; border-radius: 15px; background: white; border: 2px solid #ff9a9e; color: #5a1a3e; font-size: 1rem; min-height: 100px; resize: vertical;"></textarea>
+                            <div class="date-input-group">
+                                <input type="date" id="new-memory-date" class="date-input">
+                                <button class="btn btn-yes" onclick="addNewMemory()">Add Memory</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Date Ideas Modal -->
+    <div id="modal-date-ideas" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Date Ideas</h2>
+                <div class="close-modal" data-modal="modal-date-ideas">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Curated Date Experiences</h3>
+                        <p>Ideas based on your preferences and history</p>
+                    </div>
+                    
+                    <div class="date-idea-card">
+                        <h3 id="date-idea" style="margin-bottom: 1rem; color: #ff2f6e; font-family: 'Dancing Script', cursive; font-size: 1.8rem;">Private Wine Tasting at Home</h3>
+                        <p id="date-description" style="color: #8a2c5e; line-height: 1.6; font-size: 1rem;">Select 3-4 different wines, prepare a charcuterie board, and blind taste test while sharing your notes and preferences.</p>
+                        
+                        <div class="date-meta">
+                            <span><i class="fas fa-clock"></i> Evening</span>
+                            <span><i class="fas fa-dollar-sign"></i> Moderate</span>
+                            <span><i class="fas fa-home"></i> At Home</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-yes" onclick="generateDateIdea()" style="margin-top: 2rem; width: 100%;">Generate New Idea</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Secure Messages Modal -->
+    <div id="modal-messages" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Secret Messages</h2>
+                <div class="close-modal" data-modal="modal-messages">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Private Encrypted Communication</h3>
+                        <p>Send secret messages only the two of you can read</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1)); border-radius: 15px; padding: 1.5rem; margin-bottom: 1.5rem; border: 2px solid #ff9a9e;">
+                        <h4 style="margin-bottom: 1rem; color: #ff2f6e;">Compose New Message</h4>
+                        <textarea id="message-input" placeholder="Type your secret love message here..." style="width: 100%; padding: 1rem; border-radius: 12px; background: white; border: 2px solid #ff9a9e; color: #5a1a3e; font-family: 'Poppins', sans-serif; font-size: 1rem; min-height: 120px; resize: vertical;"></textarea>
+                        <button class="btn btn-yes" onclick="sendMessage()" style="margin-top: 1.2rem; width: 100%;">Encrypt & Send</button>
+                    </div>
+                    
+                    <div>
+                        <h4 style="margin-bottom: 1rem; color: #ff2f6e;">Recent Messages</h4>
+                        <div class="messages-grid" id="messages-container">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Relationship Challenges Modal -->
+    <div id="modal-challenges" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Relationship Challenges</h2>
+                <div class="close-modal" data-modal="modal-challenges">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Fun Tasks to Strengthen Your Bond</h3>
+                        <p>Complete challenges together to grow closer</p>
+                    </div>
+                    
+                    <div class="challenges-grid" id="challenges-container">
+                        <!-- Challenges will be loaded here -->
+                    </div>
+                    
+                    <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-yes" onclick="generateChallenge()">Generate Random Challenge</button>
+                        <button class="add-challenge-btn" onclick="addCustomChallenge()" style="width: 100%;">
+                            <i class="fas fa-plus"></i> Add Custom Challenge
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Shared Wishlist Modal -->
+    <div id="modal-wishlist" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Shared Wishlist</h2>
+                <div class="close-modal" data-modal="modal-wishlist">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Gift Ideas & Future Plans</h3>
+                        <p>Things you both want to experience or acquire together</p>
+                    </div>
+                    
+                    <div class="wishlist-grid" id="wishlist-container">
+                        <!-- Wishlist items will be loaded here -->
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem; color: #ff2f6e;">Add New Wishlist Item</h4>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="text" id="new-wishlist-item" placeholder="Enter new wishlist item" style="flex: 1; padding: 1rem; border-radius: 12px; background: white; border: 2px solid #ff9a9e; color: #5a1a3e; font-size: 1rem;">
+                            <button class="btn btn-yes" onclick="addWishlistItem()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Share Modal -->
+    <div id="modal-share" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Share with Your Partner</h2>
+                <div class="close-modal" data-modal="modal-share">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Share Your Love Portal</h3>
+                        <p>Send this personalized link to your partner</p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1)); border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                        <p style="color: #8a2c5e; margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.6;">Your partner will see everything you've customized: memories, messages, challenges, and wishlist items. Just copy the link below and send it to them!</p>
+                        
+                        <div style="background: white; border-radius: 12px; padding: 1.2rem; margin-bottom: 1.5rem; border: 2px solid #ff9a9e;">
+                            <h4 style="margin-bottom: 0.8rem; color: #ff2f6e;">Your Personalized Link</h4>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div id="share-link" style="font-family: monospace; font-size: 0.9rem; color: #5a1a3e; background: rgba(255, 154, 158, 0.1); padding: 1rem; border-radius: 8px; word-break: break-all;">Generating link...</div>
+                                <button class="btn btn-yes" onclick="copyShareLink()" style="padding: 0.8rem 1.2rem; font-size: 1rem;">Copy Link</button>
+                            </div>
+                            <p style="color: #8a2c5e; font-size: 0.8rem; margin-top: 1rem; line-height: 1.5;">This link contains both your names and all your customizations. When your partner opens it, they'll see everything you've created!</p>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <button class="btn btn-yes" onclick="shareViaWhatsApp()">
+                                <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                            </button>
+                            <button class="btn btn-yes" onclick="shareViaEmail()">
+                                <i class="fas fa-envelope"></i> Share via Email
+                            </button>
+                        </div>
+                        
+                        <p style="color: #8a2c5e; font-size: 0.8rem; margin-top: 1.5rem; text-align: center; line-height: 1.6;">
+                            <i class="fas fa-lightbulb" style="color: #ff2f6e;"></i> 
+                            <strong>Tip:</strong> After your partner opens the link, they can also customize the portal and share it back with you!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- How to Use Modal -->
+    <div id="modal-howto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>How to Use Love Portal</h2>
+                <div class="close-modal" data-modal="modal-howto">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="task-container">
+                    <div class="task-header">
+                        <h3>Complete Guide to Your Love Portal</h3>
+                        <p>Maximize your romantic experience with these tips</p>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1)); border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                            <h4 style="color: #ff2f6e; margin-bottom: 0.8rem;">Step 1: Personalize Your Portal</h4>
+                            <p style="color: #8a2c5e; font-size: 0.9rem;">• Add your special memories with dates and descriptions<br>
+                            • Generate fun date ideas and save your favorites<br>
+                            • Create a shared wishlist for future plans and gifts</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1)); border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                            <h4 style="color: #ff2f6e; margin-bottom: 0.8rem;">Step 2: Engage with Features</h4>
+                            <p style="color: #8a2c5e; font-size: 0.9rem;">• Try the Valentine proposal for a romantic moment<br>
+                            • Check your love compatibility !<br>
+                            • Send secret encrypted messages to each other<br>
+                            • Complete relationship challenges together</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1)); border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                            <h4 style="color: #ff2f6e; margin-bottom: 0.8rem;">Step 3: Share & Collaborate</h4>
+                            <p style="color: #8a2c5e; font-size: 0.9rem;">• Use the Share button to send your portal to your partner<br>
+                            • Your partner can add their own memories and messages<br>
+                            • Both of you can update the wishlist and challenges<br>
+                            • The portal syncs automatically when shared</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(255, 47, 110, 0.1), rgba(255, 154, 158, 0.1)); border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                            <h4 style="color: #ff2f6e; margin-bottom: 0.8rem;">Pro Tips</h4>
+                            
+                            • <strong>Regular Updates:</strong> Add new memories after every special date<br>
+                            • <strong>Privacy:</strong> Your data stays between you and your partner only<br>
+                            • <strong>Mobile Friendly:</strong> Access your portal from any device</p>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-yes" onclick="openModal('modal-share'); closeModal('modal-howto')" style="flex: 1;">
+                                <i class="fas fa-share-alt"></i> Share Now
+                            </button>
+                            <button class="reset-btn" onclick="resetAllData(); closeModal('modal-howto')" style="flex: 1;">
+                                <i class="fas fa-redo"></i> Reset All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- About Us Modal -->
+<div id="modal-about" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>About Us 💖</h2>
+            <div class="close-modal" data-modal="modal-about">&times;</div>
+        </div>
+
+        <div class="modal-body">
+            <div class="task-container">
+                <div class="task-header">
+                    <h3>Our Little Love Space</h3>
+                    <p>A place made with love, for halal love</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+                    <!-- Section 1: Purpose -->
+                    <div style="background: linear-gradient(135deg, rgba(255,47,110,0.1), rgba(255,154,158,0.1));
+                                border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                        <h4 style="color: #ff2f6e; margin-bottom: 0.6rem;">Why This Portal Exists</h4>
+                        <p style="color: #8a2c5e; font-size: 0.9rem;">
+                            This Love Portal was created to help couples capture memories, express feelings,
+                            plan dates, and stay emotionally connected — all in one beautiful place.
+                        </p>
+                    </div>
+
+                    <!-- Section 2: Special Features -->
+                    <div style="background: linear-gradient(135deg, rgba(255,47,110,0.1), rgba(255,154,158,0.1));
+                                border-radius: 15px; padding: 1.5rem; border: 2px solid #ff9a9e;">
+                        <h4 style="color: #ff2f6e; margin-bottom: 0.6rem;">What Makes It Special</h4>
+                        <p style="color: #8a2c5e; font-size: 0.9rem;">
+                            • Designed for <strong>halal couples</strong> only 💑<br>
+                            • Fully customizable memories & messages 💌<br>
+                            • Cute challenges & date ideas 💡<br>
+                            • Private, simple, and full of heart ❤️
+                        </p>
+                    </div>
+
+                   
+
+                    <!-- Section 4: Features & Privacy -->
+                    <div style="background: linear-gradient(135deg, rgba(255,47,110,0.12), rgba(255,154,158,0.12));
+                                border-radius: 18px; padding: 1.6rem; border: 2px dashed #ff9a9e;">
+                        <h4 style="color: #ff2f6e; margin-bottom: 0.8rem;">
+                            Features & Privacy 🌸
+                        </h4>
+                        <p style="color: #8a2c5e; font-size: 0.9rem; line-height: 1.6;">
+                            • <strong>100% Client-Side:</strong> Everything runs directly in your browser — no servers involved.<br>
+                            • <strong>Fully Private:</strong> Your memories, messages, and ideas stay only on your device.<br>
+                            • <strong>No Accounts Required:</strong> No sign-ups, no logins, no tracking.<br>
+                            • <strong>Offline Friendly:</strong> Works even without an internet connection after loading.<br>
+                            • <strong>No Data Collection:</strong> We don’t collect, store, or transmit any personal data.<br>
+                            • <strong>Instant & Fast:</strong> No loading delays — everything feels smooth and instant.<br>
+                            • <strong>Share With Trust:</strong> You choose who sees your Love Portal.
+                        </p>
+                    </div>
+
+                    <!-- Section 5: Credits -->
+                    <div style="background: linear-gradient(135deg, rgba(255,47,110,0.08), rgba(255,154,158,0.08));
+                                border-radius: 18px; padding: 1.5rem; border: 2px dotted #ff9a9e;">
+                        <h4 style="color: #ff2f6e; margin-bottom: 0.6rem;">Developer info</h4>
+                        <p style="color: #8a2c5e; font-size: 0.9rem; line-height: 1.5;">
+                            • <strong>Powered By:</strong> RED-X CORPORATION<br>
+                            • <strong>Developed By:</strong> Mohtasim Jitu<br>
+                            • <strong>Instagram:</strong> <a href="https://www.instagram.com/mohtasimjitu" target="_blank" style="color:#ff2f6e;">@mohtasimjitu</a><br>
+                            • Made with ❤️ and passion for <strong>halal couples</strong> everywhere
+                        </p>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-yes" onclick="openModal('modal-share'); closeModal('modal-about')" style="flex: 1;">
+                            <i class="fas fa-share-alt"></i> Share Love
+                        </button>
+                        <button class="reset-btn" onclick="closeModal('modal-about')" style="flex: 1;">
+                            <i class="fas fa-heart"></i> Close
+                        </button>
+                    </div> 
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <script>
+        // =================== GLOBAL VARIABLES ===================
+        let yourName = '';
+        let partnerName = '';
+        let memories = [];
+        let messages = [];
+        let challenges = [];
+        let wishlist = [];
+        let isSharedLink = false; // Track if this is a shared link
+        let creatorName = ''; // Track who created the portal originally
+        let receiverName = ''; // Track who received the portal (for shared links)
+        
+        // =================== INITIALIZATION ===================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating hearts background
+            createFloatingHearts();
+            
+            // Check URL for names and shared parameter
+            checkUrlForNames();
+            
+            // Initialize data from localStorage or URL
+            loadUserData();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+        
+        // =================== MOBILE MENU ===================
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.remove('active');
+        }
+        
+        // =================== URL PARAMETER SYSTEM ===================
+        function checkUrlForNames() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const yourNameParam = urlParams.get('yourName');
+            const partnerNameParam = urlParams.get('partnerName');
+            const sharedParam = urlParams.get('shared');
+            
+            // Check if this is a shared link (has shared=true parameter)
+            isSharedLink = sharedParam === 'true';
+            
+            if (yourNameParam && partnerNameParam) {
+                // Names are in query parameters
+                if (isSharedLink) {
+                    // For shared links: receiver is "yourName", creator is "partnerName"
+                    receiverName = decodeURIComponent(yourNameParam);
+                    creatorName = decodeURIComponent(partnerNameParam);
+                    yourName = receiverName; // Current viewer is the receiver
+                    partnerName = creatorName; // Partner is the creator
+                } else {
+                    // For direct links: creator is "yourName", partner is "partnerName"
+                    creatorName = decodeURIComponent(yourNameParam);
+                    partnerName = decodeURIComponent(partnerNameParam);
+                    yourName = creatorName; // Current viewer is the creator
+                    receiverName = partnerName; // Receiver is the partner
+                }
+                
+                document.getElementById('yourNameInput').value = yourName;
+                document.getElementById('partnerNameInput').value = partnerName;
+                
+                // Check if data is also in URL
+                const dataParam = urlParams.get('data');
+                if (dataParam) {
+                    try {
+                        // Decode the data from URL
+                        const decodedData = JSON.parse(atob(dataParam));
+                        loadDataFromURL(decodedData);
+                    } catch (e) {
+                        console.log("Could not decode URL data, using localStorage");
+                    }
+                }
+                
+                // Auto-proceed without showing modal
+                setTimeout(() => {
+                    initializeApp();
+                }, 300);
+            }
+            // If no name params, welcome modal will show
+        }
+        
+        function loadDataFromURL(data) {
+            if (data.memories) memories = data.memories;
+            if (data.messages) messages = data.messages;
+            if (data.challenges) challenges = data.challenges;
+            if (data.wishlist) wishlist = data.wishlist;
+            
+            // Save to localStorage
+            saveUserData();
+            
+            // Update UI
+            loadMemories();
+            loadMessages();
+            loadChallenges();
+            loadWishlist();
+        }
+        
+        // =================== APP INITIALIZATION ===================
+        function setNames() {
+            const yourNameInput = document.getElementById('yourNameInput');
+            const partnerNameInput = document.getElementById('partnerNameInput');
+            
+            const yourNameVal = yourNameInput.value.trim();
+            const partnerNameVal = partnerNameInput.value.trim();
+            
+            if (yourNameVal && partnerNameVal) {
+                // For direct links, the creator is the current user
+                creatorName = yourNameVal;
+                receiverName = partnerNameVal;
+                yourName = creatorName;
+                partnerName = receiverName;
+                initializeApp();
+            } else {
+                alert('Please enter both your name and your partner\'s name to continue.');
+            }
+        }
+        
+        function initializeApp() {
+            // Save to localStorage
+            localStorage.setItem('yourName', yourName);
+            localStorage.setItem('partnerName', partnerName);
+            localStorage.setItem('creatorName', creatorName);
+            localStorage.setItem('receiverName', receiverName);
+            
+            // Update UI
+            updatePersonalizedContent();
+            
+            // Hide welcome modal, show main content
+            document.getElementById('welcomeModal').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'flex';
+            
+            // Update URL with names (without reload)
+            updateUrlWithNames();
+            
+            // Pre-fill names in love meter
+            document.getElementById('your-name').value = yourName;
+            document.getElementById('partner-name').value = partnerName;
+            
+            // Show promotional section ONLY if it's NOT a shared link
+            if (!isSharedLink) {
+                document.getElementById('promo-section').style.display = 'block';
+                document.title = `Customize your Love Journey with ${yourName} & ${partnerName} ❤️`;
+            } else {
+                // For shared links, show only the Love Journey title
+                document.title = `Love Journey with ${yourName} & ${partnerName} ❤️`;
+            }
+        }
+        
+        function updateUrlWithNames() {
+            // Create URL with both names and encoded data
+            const baseUrl = window.location.origin + window.location.pathname;
+            const dataToEncode = {
+                memories: memories,
+                messages: messages,
+                challenges: challenges,
+                wishlist: wishlist
+            };
+            
+            const encodedData = btoa(JSON.stringify(dataToEncode));
+            let newUrl;
+            
+            if (isSharedLink) {
+                // For shared links, add shared=true parameter
+                newUrl = `${baseUrl}?yourName=${encodeURIComponent(receiverName)}&partnerName=${encodeURIComponent(creatorName)}&data=${encodedData}&shared=true`;
+            } else {
+                // For direct links, no shared parameter
+                newUrl = `${baseUrl}?yourName=${encodeURIComponent(creatorName)}&partnerName=${encodeURIComponent(receiverName)}&data=${encodedData}`;
+            }
+            
+            // Update URL without reloading
+            window.history.replaceState({}, '', newUrl);
+            
+            // Update share link
+            updateShareLink();
+        }
+        
+        function updatePersonalizedContent() {
+            // Update names display
+            document.getElementById('namesDisplay').textContent = `${yourName} & ${partnerName}`;
+            
+            // Update footer text correctly
+            if (isSharedLink) {
+                // For shared links: "Made with ❤️ for [receiver] by [creator]"
+                document.getElementById('footerYourName').textContent = creatorName;
+                document.getElementById('footerPartnerName').textContent = receiverName;
+                document.getElementById('footerText').innerHTML = `Made with <i class="fas fa-heart" style="color: #ff2f6e;"></i> for <span id="footerPartnerName">${receiverName}</span> by <span id="footerYourName">${creatorName}</span>`;
+            } else {
+                // For direct links: "Made with ❤️ for [partner] by [you]"
+                document.getElementById('footerYourName').textContent = yourName;
+                document.getElementById('footerPartnerName').textContent = partnerName;
+                document.getElementById('footerText').innerHTML = `Made with <i class="fas fa-heart" style="color: #ff2f6e;"></i> for <span id="footerPartnerName">${partnerName}</span> by <span id="footerYourName">${yourName}</span>`;
+            }
+            
+            // Update welcome message based on link type
+            if (isSharedLink) {
+                // For shared links: "Love Journey with A & B"
+                document.getElementById('personalizedWelcome').textContent = `Love Journey with ${yourName} & ${partnerName} ❤️`;
+                document.getElementById('personalizedMessage').textContent = `Welcome my love ${receiverName}! Explore the memories, messages, and special moments shared here.`;
+            } else {
+                // For direct links: "Customize your Love Journey with A & B"
+                document.getElementById('personalizedWelcome').textContent = `Customize your Love Journey with ${yourName} & ${partnerName} ❤️`;
+                document.getElementById('personalizedMessage').textContent = `A special place for ${yourName} and ${partnerName} to connect, create memories, and strengthen your bond. Select a card to begin your romantic adventure.`;
+            }
+            
+            // Update Valentine modal correctly
+            if (isSharedLink) {
+                // For shared links: Creator is asking receiver
+                document.getElementById('valentineModalTitle').textContent = `Will you be my Valentine, ${receiverName}? 💘`;
+                document.getElementById('valentineQuestion').textContent = `A Special Question For ${receiverName}`;
+                document.getElementById('valentineText').textContent = `Will you continue this beautiful journey with me, ${receiverName}?`;
+            } else {
+                // For direct links: Creator is asking partner
+                document.getElementById('valentineModalTitle').textContent = `Will you be my Valentine, ${partnerName}? 💘`;
+                document.getElementById('valentineQuestion').textContent = `A Special Question For ${partnerName}`;
+                document.getElementById('valentineText').textContent = `Will you continue this beautiful journey with me, ${partnerName}?`;
+            }
+            
+            // Update love meter title
+            document.getElementById('loveMeterTitle').textContent = `${yourName} & ${partnerName}'s Love Meter`;
+        }
+        
+        // =================== RESET FUNCTION ===================
+        function resetAllData() {
+            if (confirm("Are you sure you want to reset everything? This will delete all your memories, messages, challenges, and wishlist items.")) {
+                // Clear all data
+                localStorage.clear();
+                
+                // Reset variables
+                yourName = '';
+                partnerName = '';
+                creatorName = '';
+                receiverName = '';
+                memories = [];
+                messages = [];
+                challenges = [];
+                wishlist = [];
+                isSharedLink = false;
+                
+                // Clear URL and reload
+                window.history.replaceState({}, '', window.location.pathname);
+                window.location.reload();
+            }
+        }
+        
+        // =================== DATA MANAGEMENT ===================
+        function loadUserData() {
+            // Load names
+            const savedYourName = localStorage.getItem('yourName');
+            const savedPartnerName = localStorage.getItem('partnerName');
+            const savedCreatorName = localStorage.getItem('creatorName');
+            const savedReceiverName = localStorage.getItem('receiverName');
+            
+            if (savedYourName && savedPartnerName && !yourName && !partnerName) {
+                yourName = savedYourName;
+                partnerName = savedPartnerName;
+                creatorName = savedCreatorName || savedYourName;
+                receiverName = savedReceiverName || savedPartnerName;
+                document.getElementById('yourNameInput').value = yourName;
+                document.getElementById('partnerNameInput').value = partnerName;
+            }
+            
+            // Load memories
+            const savedMemories = localStorage.getItem('memories');
+            memories = savedMemories ? JSON.parse(savedMemories) : getDefaultMemories();
+            
+            // Load messages
+            const savedMessages = localStorage.getItem('messages');
+            messages = savedMessages ? JSON.parse(savedMessages) : getDefaultMessages();
+            
+            // Load challenges
+            const savedChallenges = localStorage.getItem('challenges');
+            challenges = savedChallenges ? JSON.parse(savedChallenges) : getDefaultChallenges();
+            
+            // Load wishlist
+            const savedWishlist = localStorage.getItem('wishlist');
+            wishlist = savedWishlist ? JSON.parse(savedWishlist) : getDefaultWishlist();
+            
+            // If we already have names, initialize the app
+            if (yourName && partnerName && localStorage.getItem('yourName')) {
+                initializeApp();
+            }
+        }
+        
+        function saveUserData() {
+            localStorage.setItem('yourName', yourName);
+            localStorage.setItem('partnerName', partnerName);
+            localStorage.setItem('creatorName', creatorName);
+            localStorage.setItem('receiverName', receiverName);
+            localStorage.setItem('memories', JSON.stringify(memories));
+            localStorage.setItem('messages', JSON.stringify(messages));
+            localStorage.setItem('challenges', JSON.stringify(challenges));
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            
+            // Update URL with new data
+            updateUrlWithNames();
+        }
+        
+        // =================== SHARE SYSTEM ===================
+        function updateShareLink() {
+            const baseUrl = window.location.origin + window.location.pathname;
+            const dataToEncode = {
+                memories: memories,
+                messages: messages,
+                challenges: challenges,
+                wishlist: wishlist
+            };
+            
+            const encodedData = btoa(JSON.stringify(dataToEncode));
+            
+            // For shared link, swap names and add shared=true
+            const shareUrl = `${baseUrl}?yourName=${encodeURIComponent(receiverName)}&partnerName=${encodeURIComponent(creatorName)}&data=${encodedData}&shared=true`;
+            
+            document.getElementById('share-link').textContent = shareUrl;
+            return shareUrl;
+        }
+        
+        function copyShareLink() {
+            const shareUrl = updateShareLink();
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert('Link copied to clipboard! Send it to your partner. 📋');
+            });
+        }
+        
+        function shareViaWhatsApp() {
+            const shareUrl = updateShareLink();
+            const message = `Check out our Love Portal! I've customized it just for us, ${partnerName}. 💖 ${shareUrl}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+        }
+        
+        function shareViaEmail() {
+            const shareUrl = updateShareLink();
+            const subject = `Our Love Portal - For ${yourName} & ${partnerName} 💖`;
+            const body = `Hi ${partnerName},\n\nI created a special Love Portal just for us! Click the link below to see it:\n\n${shareUrl}\n\nLove from ${yourName} ❤️`;
+            window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+        }
+        
+        // =================== FEATURE FUNCTIONS ===================
+        
+        // Valentine's feature
+        function setupValentineFeature() {
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.getElementById('yes-btn');
+            
+            let attempts = 0;
+            
+            // Function to move the "No" button
+            function moveNoButton() {
+                const modalContent = document.querySelector('#modal-valentine .modal-content');
+                const btnRect = noBtn.getBoundingClientRect();
+                const modalRect = modalContent.getBoundingClientRect();
+                
+                // Calculate maximum movement area
+                const maxX = modalRect.width - btnRect.width - 40;
+                const maxY = modalRect.height - btnRect.height - 40;
+                
+                // Generate random position
+                const x = Math.random() * maxX;
+                const y = Math.random() * maxY;
+                
+                // Apply position
+                noBtn.style.transform = `translate(${x}px, ${y}px)`;
+                noBtn.style.transition = 'transform 0.3s ease';
+                
+                attempts++;
+                
+                // Change button text as attempts increase
+                if (attempts === 3) noBtn.textContent = "😒";
+                if (attempts === 6) noBtn.textContent = "STOP!!!";
+                if (attempts === 9) noBtn.textContent = "YES?🥺";
+                if (attempts >= 12) noBtn.textContent = "Ok Yes!";
+            }
+            
+            // Events for all devices
+            noBtn.addEventListener("mouseenter", moveNoButton);
+            noBtn.addEventListener("touchstart", function(e) {
+                e.preventDefault();
+                moveNoButton();
+            });
+            noBtn.addEventListener("click", moveNoButton);
+            
+            // Yes button functionality
+            yesBtn.addEventListener("click", function() {
+                const valentineTo = isSharedLink ? receiverName : partnerName;
+                const responses = [
+    `YAYYY 💖 I knew it 😘, ${valentineTo}!`,
+    `You've made me the happiest person, ${valentineTo}! ❤️`,
+    `This is the best news ever, ${valentineTo}! 💕`,
+    `My heart is smiling so wide right now, ${valentineTo}! 😊`,
+    `I can't wait to celebrate with you, ${valentineTo}! 🎉`,
+
+    `I’m literally jumping with joy, ${valentineTo}! 💃❤️`,
+    `You just made my whole day brighter, ${valentineTo}! 🌸✨`,
+    `My heart says YES too, ${valentineTo}! 💞`,
+    `I’m so lucky to have you, ${valentineTo}! 🍀💕`,
+    `This moment feels magical, ${valentineTo}! ✨💖`,
+
+    `I’ve been waiting for this, ${valentineTo}! 😍`,
+    `You just unlocked unlimited hugs, ${valentineTo}! 🤗❤️`,
+    `My smile won’t go away now, ${valentineTo}! 😊💘`,
+    `Every heartbeat says your name, ${valentineTo}! 💓`,
+    `I’m over the moon right now, ${valentineTo}! 🌙💖`,
+
+    `You’re my favorite yes, ${valentineTo}! 😘`,
+    `My heart just did a happy dance, ${valentineTo}! 💃💞`,
+    `This feels like a dream come true, ${valentineTo}! 🌈❤️`,
+    `I’m so excited I can’t even think, ${valentineTo}! 😆💘`,
+    `You make everything better, ${valentineTo}! 🌹`,
+
+    `I’m smiling like crazy because of you, ${valentineTo}! 😄💖`,
+    `My world just got brighter with you in it, ${valentineTo}! ✨`,
+    `I can’t stop blushing right now, ${valentineTo}! 😳❤️`,
+    `You’re my happy place, ${valentineTo}! 🏡💞`,
+    `I feel so loved right now, ${valentineTo}! 💕`,
+
+    `This is going straight into my favorite memories, ${valentineTo}! 📸❤️`,
+    `You make my heart feel full, ${valentineTo}! 💓`,
+    `I’m screaming inside—happy screams, ${valentineTo}! 😍`,
+    `You’re everything I hoped for, ${valentineTo}! 🌸💖`,
+    `My heart belongs to you, ${valentineTo}! 💘`,
+
+    `I’d choose you again and again, ${valentineTo}! 🔁❤️`,
+    `You just made this moment perfect, ${valentineTo}! ✨💞`,
+    `I’m so ready to make memories with you, ${valentineTo}! 🌟`,
+    `This is our moment, ${valentineTo}! 💑`,
+    `I feel butterflies everywhere, ${valentineTo}! 🦋💖`
+];
+
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                document.getElementById('valentine-response').textContent = randomResponse;
+                
+                // Add celebration effect
+                createCelebrationHearts();
+                
+                // Reset the No button
+                noBtn.style.transform = 'translate(0, 0)';
+                noBtn.textContent = "NO 😒";
+                attempts = 0;
+            });
+        }
+        
+        // Love meter calculation - 101% for the SPECIFIC couple who created this portal
+        function calculateCompatibility() {
+            const yourNameInput = document.getElementById('your-name').value || yourName || "";
+            const partnerNameInput = document.getElementById('partner-name').value || partnerName || "";
+            
+            // Check if this is the EXACT couple who created this portal (case insensitive)
+            const input1 = yourNameInput.toLowerCase().trim();
+            const input2 = partnerNameInput.toLowerCase().trim();
+            const original1 = yourName.toLowerCase().trim();
+            const original2 = partnerName.toLowerCase().trim();
+            
+            // Check if the input names match the original couple (in any order)
+            const isOriginalCouple = 
+                (input1 === original1 && input2 === original2) || 
+                (input1 === original2 && input2 === original1);
+            
+            if (isOriginalCouple) {
+                // This is the couple who created this portal - show 101%
+                const compatibility = 101;
+                
+                // Animate the meter
+                const meterFill = document.getElementById('meter-fill');
+                const meterText = document.getElementById('meter-text');
+                const resultDiv = document.getElementById('compatibility-result');
+                
+                let currentPercent = 0;
+                const interval = setInterval(() => {
+                    currentPercent += 1;
+                    meterFill.style.width = `${Math.min(currentPercent, 100)}%`;
+                    meterText.textContent = `${Math.min(currentPercent, 100)}%`;
+                    
+                    if (currentPercent >= 100) {
+                        clearInterval(interval);
+                        
+                        // Special message for the original couple
+                        setTimeout(() => {
+                            meterText.textContent = "101%";
+                            resultDiv.innerHTML = `<h3 style="color: #ff2f6e; margin-top: 1.2rem; font-family: 'Dancing Script', cursive; font-size: 1.6rem;">✨ PERFECT MATCH! 101% ✨<br>${yourNameInput} & ${partnerNameInput} are legendary lovers! Your love story is written in the stars forever. 💫</h3>`;
+                        }, 500);
+                    }
+                }, 20);
+                return;
+            }
+            
+            // For other pairs (or if they're testing other names), use fair calculation
+            let seed = 0;
+            for (let i = 0; i < yourNameInput.length; i++) seed += yourNameInput.charCodeAt(i);
+            for (let i = 0; i < partnerNameInput.length; i++) seed += partnerNameInput.charCodeAt(i);
+            
+            const compatibility = (seed % 35) + 65; // Between 65% and 99%
+            
+            // Animate the meter
+            const meterFill = document.getElementById('meter-fill');
+            const meterText = document.getElementById('meter-text');
+            const resultDiv = document.getElementById('compatibility-result');
+            
+            let currentPercent = 0;
+            const interval = setInterval(() => {
+                currentPercent += 1;
+                meterFill.style.width = `${currentPercent}%`;
+                meterText.textContent = `${currentPercent}%`;
+                
+                if (currentPercent >= compatibility) {
+                    clearInterval(interval);
+                    
+                    // Show result message
+                    const messages = [
+                        `Amazing! ${yourNameInput} and ${partnerNameInput} are a perfect match! Your love is written in the stars. ✨`,
+                        `Incredible chemistry! ${yourNameInput} and ${partnerNameInput} complement each other perfectly. 💑`,
+                        `Wow! ${yourNameInput} and ${partnerNameInput} have a once-in-a-lifetime connection. Cherish it! 💖`,
+                        `Beautiful match! ${yourNameInput} and ${partnerNameInput} bring out the best in each other. 🌟`,
+                        `Fantastic compatibility! ${yourNameInput} and ${partnerNameInput} are destined for happiness together. 💕`
+                    ];
+                    
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    resultDiv.innerHTML = `<h3 style="color: #ff2f6e; margin-top: 1.2rem; font-family: 'Dancing Script', cursive; font-size: 1.6rem;">${randomMessage}</h3>`;
+                }
+            }, 30);
+        }
+        
+// Cute & Romantic Date Ideas Generator (Wholesome Edition)
+const dateIdeas = [
+    {
+        idea: "Candlelight Dinner at Home",
+        description: "Cook a simple meal together, light candles, play soft music, and talk about your dreams and favorite memories.",
+        time: "Evening",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Sunrise Walk & Tea",
+        description: "Take a peaceful walk at sunrise, hold hands, and sip warm tea while watching the sky change colors.",
+        time: "Morning",
+        cost: "Free",
+        location: "Outdoors"
+    },
+    {
+        idea: "Love Letter Exchange",
+        description: "Write heartfelt letters to each other and read them out loud in a quiet, cozy space.",
+        time: "Anytime",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Movie Night With Meaning",
+        description: "Watch a romantic or meaningful movie together and talk about your favorite scenes and emotions.",
+        time: "Night",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Stargazing & Wishes",
+        description: "Lie under the stars, make wishes for the future, and talk about where you see yourselves together.",
+        time: "Night",
+        cost: "Free",
+        location: "Outdoors"
+    },
+    {
+        idea: "Cooking Together Date",
+        description: "Choose a new recipe, cook side by side, laugh at mistakes, and enjoy the meal you made together.",
+        time: "Evening",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Memory Scrapbook Night",
+        description: "Create a scrapbook using photos, notes, and little memories from your relationship.",
+        time: "Anytime",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Rainy Day Balcony Date",
+        description: "Sit together on the balcony during rain, share warm drinks, and listen to the raindrops.",
+        time: "Anytime",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Dream Board Creation",
+        description: "Make a vision board together with dreams, goals, and future plans you want to achieve as a couple.",
+        time: "Anytime",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Picnic With Handwritten Notes",
+        description: "Pack snacks and small handwritten notes to read to each other during the picnic.",
+        time: "Daytime",
+        cost: "Low",
+        location: "Outdoors"
+    },
+    {
+        idea: "Playlist Sharing Date",
+        description: "Create playlists for each other and explain why each song reminds you of them.",
+        time: "Anytime",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Sunset Watching Together",
+        description: "Sit quietly together and watch the sunset while holding hands and sharing gentle conversations.",
+        time: "Evening",
+        cost: "Free",
+        location: "Outdoors"
+    },
+    {
+        idea: "Home Café Date",
+        description: "Turn your kitchen into a café, make cute drinks and desserts, and role-play as customers and baristas.",
+        time: "Evening",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Slow Dance in the Room",
+        description: "Play a soft song and slow dance together, even if neither of you knows how to dance.",
+        time: "Night",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Compliment Challenge",
+        description: "Take turns giving each other genuine compliments until one of you runs out.",
+        time: "Anytime",
+        cost: "Free",
+        location: "Anywhere"
+    },
+    {
+        idea: "Childhood Stories Night",
+        description: "Share funny and sweet childhood stories while sitting close and listening carefully.",
+        time: "Night",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Polaroid Photo Date",
+        description: "Take cute photos together and write little notes on the back of each one.",
+        time: "Daytime",
+        cost: "Low",
+        location: "Anywhere"
+    },
+    {
+        idea: "Bake Something Sweet Together",
+        description: "Bake cookies or cake together and decorate them in cute or funny ways.",
+        time: "Evening",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Virtual Hug Date",
+        description: "If long-distance, spend time on video call talking, smiling, and sending virtual hugs.",
+        time: "Anytime",
+        cost: "Free",
+        location: "Virtual"
+    },
+    {
+        idea: "Future Trip Planning",
+        description: "Plan a future trip together, choosing places, activities, and imagining moments there.",
+        time: "Anytime",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Morning Coffee & Gratitude",
+        description: "Start the day by sharing what you’re grateful for about each other over warm coffee or tea.",
+        time: "Morning",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Late Night Deep Talks",
+        description: "Turn off distractions and talk deeply about life, love, fears, and hopes.",
+        time: "Night",
+        cost: "Free",
+        location: "Anywhere"
+    },
+    {
+        idea: "Handwritten To-Do Love List",
+        description: "Write a list of little things you want to do together in the future.",
+        time: "Anytime",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Nature Walk With Photos",
+        description: "Take a calm walk in nature and take photos of things that remind you of each other.",
+        time: "Daytime",
+        cost: "Free",
+        location: "Outdoors"
+    },
+    {
+        idea: "Mini Home Concert",
+        description: "Sing songs for each other or play music softly and enjoy the moment.",
+        time: "Evening",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Midnight Snack Date",
+        description: "Prepare simple snacks late at night and talk quietly while enjoying them together.",
+        time: "Night",
+        cost: "Low",
+        location: "At Home"
+    },
+    {
+        idea: "Question Card Date",
+        description: "Ask each other thoughtful relationship questions and answer honestly.",
+        time: "Anytime",
+        cost: "Free",
+        location: "Anywhere"
+    },
+    {
+        idea: "Hand Holding Walk",
+        description: "Take a slow walk without phones, focusing only on each other and the moment.",
+        time: "Evening",
+        cost: "Free",
+        location: "Outdoors"
+    },
+    {
+        idea: "Bedtime Story Date",
+        description: "Read a romantic or calming story to each other before sleep.",
+        time: "Night",
+        cost: "Free",
+        location: "At Home"
+    },
+    {
+        idea: "Cute Reels Creation",
+        description: "Create cute short videos or photos together just for memories.",
+        time: "Anytime",
+        cost: "Free",
+        location: "Anywhere"
+    },
+    {
+        idea: "Silent Together Time",
+        description: "Sit together in comfortable silence, enjoying each other's presence.",
+        time: "Anytime",
+        cost: "Free",
+        location: "Anywhere"
+    }
+];
+
+        
+        function generateDateIdea() {
+            const randomIdea = dateIdeas[Math.floor(Math.random() * dateIdeas.length)];
+            document.getElementById('date-idea').textContent = randomIdea.idea;
+            document.getElementById('date-description').textContent = randomIdea.description;
+            
+            // Update metadata
+            const dateMeta = document.querySelector('.date-meta');
+            dateMeta.innerHTML = `
+                <span><i class="fas fa-clock"></i> ${randomIdea.time}</span>
+                <span><i class="fas fa-dollar-sign"></i> ${randomIdea.cost}</span>
+                <span><i class="fas fa-${randomIdea.location === 'At Home' ? 'home' : (randomIdea.location === 'Virtual' ? 'laptop' : 'map-marker-alt')}"></i> ${randomIdea.location}</span>
+            `;
+        }
+        
+        // Memories feature with delete function
+        function getDefaultMemories() {
+            return [
+                {
+                    id: 1,
+                    title: "First Meeting",
+                    description: "The day our eyes met for the first time",
+                    date: new Date().toISOString().split('T')[0],
+                    icon: "fas fa-heart",
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                },
+                {
+                    id: 2,
+                    title: "First Date",
+                    description: "Our magical first date at that little cafe",
+                    date: new Date(Date.now() - 30*24*60*60*1000).toISOString().split('T')[0],
+                    icon: "fas fa-coffee",
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                },
+                {
+                    id: 3,
+                    title: "First Trip Together",
+                    description: "The beach vacation where we really connected",
+                    date: new Date(Date.now() - 60*24*60*60*1000).toISOString().split('T')[0],
+                    icon: "fas fa-umbrella-beach",
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                }
+            ];
+        }
+        
+        function loadMemories() {
+            const memoryGrid = document.getElementById('memoryGrid');
+            memoryGrid.innerHTML = '';
+            
+            memories.forEach(memory => {
+                const memoryItem = document.createElement('div');
+                memoryItem.className = 'memory-item';
+                memoryItem.onclick = () => viewMemory(memory.id);
+                
+                // Format date for display
+                const dateObj = new Date(memory.date);
+                const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                    month: 'long', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                });
+                
+                memoryItem.innerHTML = `
+                    <div class="memory-delete" onclick="deleteMemory(${memory.id}); event.stopPropagation();">×</div>
+                    <div class="memory-icon"><i class="${memory.icon}"></i></div>
+                    <h4>${memory.title}</h4>
+                    <p style="color: #8a2c5e; font-size: 0.9rem; margin-top: 0.5rem;">${memory.description}</p>
+                    <div style="color: #ff2f6e; font-size: 0.8rem; margin-top: 0.8rem; font-weight: 600;">${formattedDate}</div>
+                    <div style="color: #8a2c5e; font-size: 0.7rem; margin-top: 0.5rem; font-style: italic;">Added by: ${memory.addedBy || 'Unknown'}</div>
+                `;
+                
+                memoryGrid.appendChild(memoryItem);
+            });
+        }
+        
+        function viewMemory(id) {
+            const memory = memories.find(m => m.id === id);
+            if (memory) {
+                const dateObj = new Date(memory.date);
+                const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                    month: 'long', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                });
+                
+                alert(`💖 Memory: ${memory.title}\n\n${memory.description}\n\nDate: ${formattedDate}\n\nAdded by: ${memory.addedBy || 'Unknown'}`);
+            }
+        }
+        
+        function deleteMemory(id) {
+            if (confirm("Are you sure you want to delete this memory?")) {
+                memories = memories.filter(memory => memory.id !== id);
+                saveUserData();
+                loadMemories();
+            }
+        }
+        
+        function addNewMemory() {
+            const titleInput = document.getElementById('new-memory-title');
+            const descriptionInput = document.getElementById('new-memory-description');
+            const dateInput = document.getElementById('new-memory-date');
+            
+            const title = titleInput.value.trim();
+            const description = descriptionInput.value.trim();
+            const date = dateInput.value;
+            
+            if (!title || !description) {
+                alert("Please fill in both the title and description for your memory. 💌");
+                return;
+            }
+            
+            if (!date) {
+                alert("Please select a date for your memory. 📅");
+                return;
+            }
+            
+            const newMemory = {
+                id: Date.now(), // Unique ID based on timestamp
+                title: title,
+                description: description,
+                date: date,
+                icon: "fas fa-heart",
+                isDefault: false,
+                addedBy: yourName || "You"
+            };
+            
+            memories.push(newMemory);
+            saveUserData();
+            loadMemories();
+            
+            // Clear inputs
+            titleInput.value = '';
+            descriptionInput.value = '';
+            dateInput.value = '';
+            
+            alert(`Memory "${title}" has been added to your vault! 💝`);
+        }
+        
+        // Messages feature
+        function getDefaultMessages() {
+            return [
+               
+            ];
+        }
+        
+        function loadMessages() {
+            const messagesContainer = document.getElementById('messages-container');
+            messagesContainer.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message-item';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-delete" onclick="deleteMessage(${msg.id})">×</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; align-items: center;">
+                        <span style="color: #ff2f6e; font-weight: 600;">From: ${msg.from}</span>
+                        <span style="color: #8a2c5e; font-size: 0.8rem;">${msg.time}</span>
+                    </div>
+                    <p style="color: #5a1a3e; font-size: 0.9rem; margin-bottom: 0.5rem;">${msg.message}</p>
+                    <div style="color: #8a2c5e; font-size: 0.7rem; font-style: italic;">To: ${msg.to}</div>
+                `;
+                
+                messagesContainer.appendChild(messageDiv);
+            });
+        }
+        
+        function deleteMessage(id) {
+            if (confirm("Are you sure you want to delete this message?")) {
+                messages = messages.filter(msg => msg.id !== id);
+                saveUserData();
+                loadMessages();
+            }
+        }
+        
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                alert("Please enter a message to send. 💬");
+                return;
+            }
+            
+            const newMessage = {
+                id: Date.now(),
+                from: yourName || "You",
+                to: partnerName,
+                message: message,
+                time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + ', Today',
+                isDefault: false
+            };
+            
+            messages.push(newMessage);
+            saveUserData();
+            loadMessages();
+            
+            messageInput.value = '';
+            alert("Your message has been saved! 💝");
+        }
+        
+        // Challenges feature with delete and status toggle
+        function getDefaultChallenges() {
+            return [
+                {
+                    id: 1,
+                    title: "24-Hour Phone Detox",
+                    description: "Spend 24 hours without checking phones when together",
+                    status: "pending",
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                },
+                {
+                    id: 2,
+                    title: "Learn Something New Together",
+                    description: "Pick a skill neither of you know and learn it together",
+                    status: "completed",
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                },
+                {
+                    id: 3,
+                    title: "Weekly Gratitude Sharing",
+                    description: "Share 3 things you appreciate about each other every week",
+                    status: "pending",
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                }
+            ];
+        }
+        
+        function loadChallenges() {
+            const challengesContainer = document.getElementById('challenges-container');
+            challengesContainer.innerHTML = '';
+            
+            challenges.forEach(challenge => {
+                const challengeItem = document.createElement('div');
+                challengeItem.className = 'challenge-item';
+                
+                const statusClass = challenge.status === 'completed' ? 'status-completed' : 'status-pending';
+                const statusText = challenge.status === 'completed' ? 'Completed' : 'Pending';
+                
+                challengeItem.innerHTML = `
+                    <div class="challenge-delete" onclick="deleteChallenge(${challenge.id})">×</div>
+                    <h4 style="margin-bottom: 0.5rem; color: #ff2f6e;">${challenge.title}</h4>
+                    <p style="color: #8a2c5e; font-size: 0.9rem; flex-grow: 1;">${challenge.description}</p>
+                    <div style="color: #8a2c5e; font-size: 0.7rem; margin-top: 0.5rem; font-style: italic;">Added by: ${challenge.addedBy || 'Unknown'}</div>
+                    <div class="challenge-status ${statusClass}" onclick="toggleChallengeStatus(${challenge.id}); event.stopPropagation();">${statusText}</div>
+                `;
+                
+                challengesContainer.appendChild(challengeItem);
+            });
+        }
+        
+        function toggleChallengeStatus(id) {
+            const challenge = challenges.find(challenge => challenge.id === id);
+            if (challenge) {
+                challenge.status = challenge.status === 'completed' ? 'pending' : 'completed';
+                saveUserData();
+                loadChallenges();
+            }
+        }
+        
+        function deleteChallenge(id) {
+            if (confirm("Are you sure you want to delete this challenge?")) {
+                challenges = challenges.filter(challenge => challenge.id !== id);
+                saveUserData();
+                loadChallenges();
+            }
+        }
+        
+        const challengeIdeas = [
+    "Cook a meal using only ingredients you already have at home",
+    "Watch each other's favorite movie from childhood",
+    "Create a time capsule to open on your next anniversary",
+    "Learn 5 phrases in a new language together",
+    "Take a day trip to a nearby town you've never visited",
+    "Write a short story together, each writing alternate paragraphs",
+    "Have a picnic in an unusual location (rooftop, parking garage, etc.)",
+    "Volunteer together for a cause you both care about",
+    "Create a playlist of songs that represent your relationship",
+    "Teach each other something you're good at",
+
+    "Write love notes and hide them around the house for each other",
+    "Recreate your first date as closely as possible",
+    "Spend one evening without phones and distractions",
+    "Take turns planning a surprise mini date at home",
+    "Ask each other 10 deep but gentle questions",
+    "Create a scrapbook page for this month together",
+    "Watch the sunrise or sunset together and take one photo",
+    "Compliment each other every hour for one day",
+    "Cook each other’s favorite comfort food",
+    "Make a list of dreams you want to achieve together",
+
+    "Create a couple nickname for each other and use it all day",
+    "Choose a song and slow dance together at home",
+    "Write a letter to your future selves as a couple",
+    "Share one childhood memory you’ve never told before",
+    "Do a random act of kindness together",
+    "Plan a future vacation in detail, even if it’s imaginary",
+    "Take matching or themed photos together",
+    "Spend an evening sharing only happy memories",
+    "Create a couple emoji that represents you both",
+    "Make a shared digital album for your favorite moments",
+
+    "Read a short poem to each other",
+    "Cook a dessert together and decorate it cutely",
+    "Watch the stars and name one after each other",
+    "Create a shared daily ritual (good morning or good night message)",
+    "Draw each other without looking at the paper",
+    "Make a list of things you love about each other",
+    "Watch a feel-good movie and cuddle or chat",
+    "Record a short video message for each other",
+    "Plan a perfect day together from morning to night",
+    "Spend 10 minutes in silence just holding hands",
+
+    "Create a shared journal and write your first entry",
+    "Send each other a voice note explaining why you’re grateful",
+    "Choose a book and read one chapter together",
+    "Make a small handmade gift for each other",
+    "Create a relationship bucket list together"
+];
+
+        
+        function generateChallenge() {
+            const randomChallenge = challengeIdeas[Math.floor(Math.random() * challengeIdeas.length)];
+            
+            const newChallenge = {
+                id: Date.now(),
+                title: randomChallenge,
+                description: "A fun activity to strengthen your bond",
+                status: "pending",
+                isDefault: false,
+                addedBy: yourName || "You"
+            };
+            
+            challenges.push(newChallenge);
+            saveUserData();
+            loadChallenges();
+            
+            alert(`New Challenge Added:\n\n"${randomChallenge}"\n\nThis challenge has been added to your list! 🏆`);
+        }
+        
+        function addCustomChallenge() {
+            const title = prompt("Enter your custom challenge title:");
+            if (!title) return;
+            
+            const description = prompt("Enter a description for this challenge:");
+            if (!description) return;
+            
+            const newChallenge = {
+                id: Date.now(),
+                title: title,
+                description: description,
+                status: "pending",
+                isDefault: false,
+                addedBy: yourName || "You"
+            };
+            
+            challenges.push(newChallenge);
+            saveUserData();
+            loadChallenges();
+            
+            alert(`Custom challenge "${title}" has been added! 🏆`);
+        }
+        
+        // Wishlist feature with delete and "added by"
+        function getDefaultWishlist() {
+            return [
+                {
+                    id: 1,
+                    title: "Weekend Getaway",
+                    description: "A cozy cabin in the mountains",
+                    checked: false,
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                },
+                {
+                    id: 2,
+                    title: "Cooking Class Together",
+                    description: "Learn to make pasta from scratch",
+                    checked: true,
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                },
+                {
+                    id: 3,
+                    title: "Couple's Photoshoot",
+                    description: "Professional photos in our favorite park",
+                    checked: false,
+                    isDefault: true,
+                    addedBy: creatorName || yourName || "You"
+                }
+            ];
+        }
+        
+        function loadWishlist() {
+            const wishlistContainer = document.getElementById('wishlist-container');
+            wishlistContainer.innerHTML = '';
+            
+            wishlist.forEach(item => {
+                const wishlistItem = document.createElement('div');
+                wishlistItem.className = 'wishlist-item';
+                
+                const checkedClass = item.checked ? 'checked' : '';
+                
+                wishlistItem.innerHTML = `
+                    <div class="wishlist-delete" onclick="deleteWishlistItem(${item.id})">×</div>
+                    <div class="wishlist-checkbox ${checkedClass}" onclick="toggleWishlistItem(${item.id}); event.stopPropagation();"></div>
+                    <h4 style="margin-bottom: 0.5rem; color: #ff2f6e;">${item.title}</h4>
+                    <p style="color: #8a2c5e; font-size: 0.9rem; flex-grow: 1;">${item.description}</p>
+                    <div style="color: #8a2c5e; font-size: 0.7rem; margin-top: 0.5rem; font-style: italic;">Added by: ${item.addedBy || 'Unknown'}</div>
+                `;
+                
+                wishlistContainer.appendChild(wishlistItem);
+            });
+        }
+        
+        function deleteWishlistItem(id) {
+            if (confirm("Are you sure you want to delete this wishlist item?")) {
+                wishlist = wishlist.filter(item => item.id !== id);
+                saveUserData();
+                loadWishlist();
+            }
+        }
+        
+        function toggleWishlistItem(id) {
+            const item = wishlist.find(item => item.id === id);
+            if (item) {
+                item.checked = !item.checked;
+                saveUserData();
+                loadWishlist();
+            }
+        }
+        
+        function addWishlistItem() {
+            const input = document.getElementById('new-wishlist-item');
+            const title = input.value.trim();
+            
+            if (!title) {
+                alert("Please enter a wishlist item. 🎁");
+                return;
+            }
+            
+            const newItem = {
+                id: Date.now(),
+                title: title,
+                description: "A special item for us",
+                checked: false,
+                isDefault: false,
+                addedBy: yourName || "You"
+            };
+            
+            wishlist.push(newItem);
+            saveUserData();
+            loadWishlist();
+            
+            input.value = '';
+            alert(`"${title}" has been added to your shared wishlist! 💝`);
+        }
+        
+        // =================== UTILITY FUNCTIONS ===================
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            
+            for(let i = 0; i < 25; i++) {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerHTML = '<i class="fas fa-heart"></i>'; // Changed from "❤️" to Font Awesome icon
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = 10 + Math.random() * 10 + "s";
+                heart.style.animationDelay = Math.random() * 5 + "s";
+                heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+                heart.style.color = "#f73461"; // Changed from #ff69b4 to #ffb6c1
+                container.appendChild(heart);
+            }
+        }
+        
+        function createCelebrationHearts() {
+            const modal = document.getElementById('modal-valentine');
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '<i class="fas fa-heart"></i>'; // Changed from "❤️" to Font Awesome icon  
+                    heart.style.position = 'absolute';
+                    heart.style.color = "#ff0841"; // Changed from #ff69b4 to #ffb6c1
+                    heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.top = `${Math.random() * 100}%`;
+                    heart.style.zIndex = '1001';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = `float ${Math.random() * 3 + 2}s ease-out forwards`;
+                    
+                    if (modal.querySelector('.modal-content')) {
+                        modal.querySelector('.modal-content').appendChild(heart);
+                    }
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.remove();
+                        }
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+        
+        function setupEventListeners() {
+            // Setup modals
+            setupModals();
+            
+            // Setup cards
+            setupCards();
+            
+            // Setup Valentine feature
+            setupValentineFeature();
+            
+            // Load data into UI
+            loadMemories();
+            loadMessages();
+            loadChallenges();
+            loadWishlist();
+            
+            // Initialize date idea
+            generateDateIdea();
+            
+            // Setup keyboard shortcuts
+            document.addEventListener('keydown', function(event) {
+                // Escape key closes modals
+                if (event.key === 'Escape') {
+                    closeAllModals();
+                }
+            });
+            
+            // Close menu when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768) {
+                    const nav = document.querySelector('nav');
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    if (nav.classList.contains('active') && 
+                        !nav.contains(event.target) && 
+                        !menuToggle.contains(event.target)) {
+                        nav.classList.remove('active');
+                    }
+                }
+            });
+        }
+        
+        function setupModals() {
+            // Close modal when X is clicked
+            const closeButtons = document.querySelectorAll('.close-modal');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal');
+                    closeModal(modalId);
+                });
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    closeAllModals();
+                }
+            });
+        }
+        
+        function setupCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal');
+                    openModal(modalId);
+                });
+            });
+        }
+        
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                
+                // Add a subtle animation to the modal content
+                const modalContent = modal.querySelector('.modal-content');
+                modalContent.style.animation = 'none';
+                setTimeout(() => {
+                    modalContent.style.animation = 'modalAppear 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                }, 10);
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        function closeAllModals() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
