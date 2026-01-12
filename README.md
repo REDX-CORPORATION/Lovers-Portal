@@ -1,12 +1,19 @@
-# 💖 Love Portal — Your Personal Romance Space
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=28&duration=2500&pause=800&color=ff57ae&center=true&vCenter=true&width=950&lines=LOVERS+PORTAL;Enjoy+features+built+with+love,+privacy,+and+convenience" alt="RED-X Typing" />
+</p>
+
+# 💖 Lovers Portal 
 
 Welcome to **Love Portal** — a beautiful, private, and fully client‑side web experience built for couples to capture memories, generate date ideas, share messages, and celebrate love every day. 💌✨
+<p align="center">
+  <img src="https://img.shields.io/badge/LOVERS-PORTAL-pink" alt="Lovers Portal Badge" />
+  <img src="https://img.shields.io/badge/Client--Side-100%25-pink" alt="Features" />
+  <img src="https://img.shields.io/badge/No%20Data%20Stored-pink" alt="Features" />
+</p>
 
-🎀 **Visit Live:** https://valentine-2026.netlify.app/
+## 🎀 **Visit Live:** https://valentine-2026.netlify.app/
 
-![KOVERS PORTAL](https://img.shields.io/badge/LOVERS-PORTAL)
-![Client-Side](https://img.shields.io/badge/Client--Side-100%25-blue)
-![No Server](https://img.shields.io/badge/No%20Server%20Required-green)
+---
 
 
 <p align="center">
