@@ -4,6 +4,15 @@ Welcome to **Love Portal** — a beautiful, private, and fully client‑side web
 
 🎀 **Visit Live:** https://valentine-2026.netlify.app/
 
+![KOVERS PORTAL](https://img.shields.io/badge/LOVERS-PORTAL)
+![Client-Side](https://img.shields.io/badge/Client--Side-100%25-blue)
+![No Server](https://img.shields.io/badge/No%20Server%20Required-green)
+
+
+<p align="center">
+  <img src="Screenshot (16).png" alt="RED-X Logo"/>
+</p>
+
 ---
 
 ## 🌟 What Is Love Portal?
